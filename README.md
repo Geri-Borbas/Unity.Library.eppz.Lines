@@ -1,4 +1,4 @@
-# `eppz.Lines`
+# eppz.Lines
 > part of [Unity.Library.eppz](https://github.com/eppz/Unity.Library.eppz)
 
 Lightweight OpenGL line rendering for Unity. See example scene in [`Scenes`](Scenes) for more.
