@@ -1,5 +1,5 @@
 # eppz.Lines
-### <sup>`part of 🛠️ `[`Unity.Library.eppz`](https://github.com/eppz/Unity.Library.eppz)</sup>
+#### <sup>part of 🛠️ [Unity.Library.eppz](https://github.com/eppz/Unity.Library.eppz)</sup>
 
 Lightweight OpenGL line rendering for Unity. See example scene in [`Scenes`](Scenes) for more.
 
