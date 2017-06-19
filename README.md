@@ -1,11 +1,27 @@
 # eppz.Lines
 > part of [**Unity.Library.eppz**](https://github.com/eppz/Unity.Library.eppz)
 
-Lightweight OpenGL line rendering for Unity. Like `Debug.DrawLine` in Game view. See example scene in [`Scenes`](Scenes) for more.
+Lightweight OpenGL line rendering for Unity. Like `Debug.DrawLine` in Game view. 
 
 ![Lightweight OpenGL line rendering for Unity. Like Debug.DrawLine in Game view.](https://github.com/eppz/Unity.Library.eppz.Lines/raw/Documentation/Documentation/EPPZ.Lines_444px.gif)
 
-## Overview
+Simple drawing API goes like below (see example scene in [`Scenes`](Scenes) for more).
+
+```
+DrawLine(Vector2.up, Vector2.down, Color.white);
+DrawCircle(Vector2.zero, 10.0f, Color.yellow);
+```
+
+## Usage
+
+1. Add a `LineRendererCamera` script to your camera.
+2. Hook up a material.
+3. **A. Inspector only.** Add a `CachedLineRenderer` to a `GameObject` to define lines in inspector directly. 
+3. **B. Code.** Implement `DirectLineRenderer` in a new script.
+
+> See example scenes in [`Scenes`](Scenes) for more.
+
+## Under the hood
 
 The library uses **OpenGL immediate mode** drawing in the `Camera.OnPostRender()` template metod. While the lines in the scene gets batches into a single draw call, this library is not really meant for production use, **mainly useful for debugging purposes**.
 
@@ -24,13 +40,6 @@ GL.End();
 
 The camera also calls `Debug.DrawLine` calls on `Update()`, so you can see your drawings in the scene view as well.
 
-## Usage
-
-1. Add a `LineRendererCamera` script to your rendering camera.
-2. Hook up a material to draw with (may use `eppz! Lines` material provided).
-3. **A.** Add a `CachedLineRenderer` to a `GameObject` to define lines in inspector directly. See *CachedLineRenderer* scene in [`Scenes`](Scenes) for more.
-3. **B.** Or implement `DirectLineRenderer` in a new script, and do whatever you want to do with it. See *DirectLineRenderer* or *Bezier* scene in [`Scenes`](Scenes) for more.
-
 ## Implement `DirectLineRenderer`
 
 There is a single `OnDraw()` template method you can override, and impement your drawing code there.
@@ -38,7 +47,7 @@ There is a single `OnDraw()` template method you can override, and impement your
 > This method will be invoked from `LineRendererCamera`, batch you line definitions for the given frame, then draw them in `OnPostRender()` (see above).
 
 ```C#
-public class Line : EPPZ.Lines.DirectLineRenderer
+public class Line : DirectLineRenderer
 {
 	protected override void OnDraw()
 	{
