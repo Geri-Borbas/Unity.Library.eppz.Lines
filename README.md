@@ -40,7 +40,7 @@ public class Line : EPPZ.Lines.DirectLineRenderer
 {
 	protected override void OnDraw()
 	{
-        DrawLine(Vector2.up, Vector2.down, Color.white);
+		DrawLine(Vector2.up, Vector2.down, Color.white);
 	}
 }
 ```
