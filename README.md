@@ -3,6 +3,8 @@
 
 Lightweight OpenGL line rendering for Unity. Like `Debug.DrawLine` in Game view. See example scene in [`Scenes`](Scenes) for more.
 
+![Lightweight OpenGL line rendering for Unity. Like Debug.DrawLine in Game view.](https://github.com/eppz/Unity.Library.eppz.Lines/raw/Documentation/Documentation/EPPZ.Lines_444px.gif)
+
 ## Overview
 
 The library uses **OpenGL immediate mode** drawing in the `Camera.OnPostRender()` template metod. While the lines in the scene gets batches into a single draw call, this library is not really meant for production use, **mainly useful for debugging purposes**.

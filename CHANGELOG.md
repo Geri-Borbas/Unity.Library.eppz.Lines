@@ -1,5 +1,10 @@
 # eppz.Lines
 
+* 0.5.01 - 0.5.1
+
+	+ Delete remaining `.meta`
+	+ `README.md` media
+
 * 0.5.0
 
 	+ Added `EPPZ.Lines` namespace classes
