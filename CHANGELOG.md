@@ -1,5 +1,9 @@
 # eppz! `Lines`
 
+* 0.5.3
+
+	+ `LineRendererCamera` can now batch lines on `Update` or `LateUpdate`
+
 * 0.5.2
 
 	+ Drawing without transform use world coordinates (like it always should)

@@ -37,6 +37,8 @@ namespace EPPZ.Lines
 		private Camera _camera;
 
 		// Renderers.
+		public enum UpdateMode { Update, LateUpdate };
+		public UpdateMode update = UpdateMode.Update;
 		public List<DirectLineRenderer> directLineRenderers = new List<DirectLineRenderer>();
 		public List<CachedLineRenderer> cachedLineRenderers = new List<CachedLineRenderer>();
 		private List<EPPZ.Lines.Line> lineBatch = new List<EPPZ.Lines.Line>(); 
@@ -62,8 +64,20 @@ namespace EPPZ.Lines
 
 		void Update()
 		{
-			BatchLines();
-			DrawLines();
+			if (update == UpdateMode.Update)
+			{
+				BatchLines();
+				DrawLines();
+			}
+		}
+
+		void LateUpdate()
+		{
+			if (update == UpdateMode.LateUpdate)
+			{
+				BatchLines();
+				DrawLines();
+			}
 		}
 
 		void BatchLines()
