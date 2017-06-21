@@ -21,7 +21,7 @@ namespace EPPZ.Lines
 	/// this camera finished rendering.
 	/// </summary>
 
-#if EPPZ_UTILS_IS_AVAILABLE
+#if EPPZ_UTILS
 	using EPPZ.Utils;
 	[ExecutionOrder (1000)]
 #endif

@@ -1,5 +1,10 @@
 # eppz.Lines
 
+* 0.5.2
+
+	+ Drawing without transform use world coordinates (like it always should)
+	+ `Define.cs` renaming
+
 * 0.5.01 - 0.5.1
 
 	+ Delete remaining `.meta`

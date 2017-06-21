@@ -20,7 +20,7 @@ namespace EPPZ.Lines
 	/// Not meant for direct client useage.
 	/// </summary>
 
-#if EPPZ_UTILS_IS_AVAILABLE
+#if EPPZ_UTILS
 	using EPPZ.Utils;
 	[ExecutionOrder (1100)]
 #endif
@@ -59,7 +59,7 @@ namespace EPPZ.Lines
 		#region Drawing methods
 
 			protected void DrawPoints(Vector2[] points, Color color, bool closed = true)
-			{ DrawPointsWithTransform(points, color, this.transform, closed); }
+			{ DrawPointsWithTransform(points, color, null, closed); }
 
 			protected void DrawPointsWithTransform(Vector2[] points, Color color, Transform transform_, bool closed = true)
 			{
@@ -69,9 +69,12 @@ namespace EPPZ.Lines
 					Vector2 eachPoint = points[index];
 					Vector2 eachNextPoint = (index < points.Length - 1) ? points[index + 1] : points[0];
 
-					// Apply shape transform.
-					eachPoint = transform_.TransformPoint(eachPoint);
-					eachNextPoint = transform_.TransformPoint(eachNextPoint);
+					// Apply shape transform (if any).
+					if (transform_ != null)
+					{
+						eachPoint = transform_.TransformPoint(eachPoint);
+						eachNextPoint = transform_.TransformPoint(eachNextPoint);
+					}
 
 					// Draw.
 					DrawLine(eachPoint, eachNextPoint, color);
@@ -79,14 +82,22 @@ namespace EPPZ.Lines
 			}
 
 			protected void DrawRect(Rect rect, Color color)
-			{ DrawRectWithTransform(rect, color, this.transform); }
+			{ DrawRectWithTransform(rect, color, null); }
 
 			protected void DrawRectWithTransform(Rect rect, Color color, Transform transform_)
 			{
-				Vector2 leftTop = transform_.TransformPoint(new Vector2(rect.xMin, rect.yMin));
-				Vector2 rightTop = transform_.TransformPoint(new Vector2(rect.xMax, rect.yMin));
-				Vector2 rightBottom = transform_.TransformPoint(new Vector2(rect.xMax, rect.yMax));
-				Vector2 leftBottom = transform_.TransformPoint(new Vector2(rect.xMin, rect.yMax));
+				Vector2 leftTop = new Vector2(rect.xMin, rect.yMin);
+				Vector2 rightTop = new Vector2(rect.xMax, rect.yMin);
+				Vector2 rightBottom = new Vector2(rect.xMax, rect.yMax);
+				Vector2 leftBottom = new Vector2(rect.xMin, rect.yMax);
+
+				if (transform_ != null)
+				{
+					leftTop = transform_.TransformPoint(leftTop);
+					rightTop = transform_.TransformPoint(rightTop);
+					rightBottom = transform_.TransformPoint(rightBottom);
+					leftBottom = transform_.TransformPoint(leftBottom);
+				}
 
 				DrawLine(
 					leftTop,
@@ -110,9 +121,9 @@ namespace EPPZ.Lines
 			}
 
 			protected void DrawCircle(Vector2 center, float radius, int segments, Color color)
-			{ DrawCircleWithTransform(center, radius, segments, color, this.transform); }
+			{ DrawCircleWithTransform(center, radius, segments, color, null); }
 
-			protected void DrawCircleWithTransform(Vector2 center, float radius, int segments, Color color, Transform transform)
+			protected void DrawCircleWithTransform(Vector2 center, float radius, int segments, Color color, Transform transform_)
 			{
 				Vector2[] vertices = new Vector2[segments];
 
@@ -136,21 +147,43 @@ namespace EPPZ.Lines
 				// Draw around center.
 				for (int index = 0; index < segments - 1; index++)
 				{
+					if (transform_ != null)
+					{
+						DrawLineWithTransform(
+							center + vertices[index],
+							center + vertices[index + 1],
+							color,
+							transform
+						);
+					}
+					else
+					{
+						DrawLine(
+							center + vertices[index],
+							center + vertices[index + 1],
+							color
+						);
+					}
+				}
+
+				// Last segment.
+				if (transform_ != null)
+				{
 					DrawLineWithTransform(
-						center + vertices[index],
-						center + vertices[index + 1],
+						center + vertices[segments - 1],
+						center + vertices[0],
 						color,
 						transform
 					);
 				}
-
-				// Last segment.
-				DrawLineWithTransform(
-					center + vertices[segments - 1],
-					center + vertices[0],
-					color,
-					transform
-				);
+				else
+				{
+					DrawLine(
+						center + vertices[segments - 1],
+						center + vertices[0],
+						color
+					);
+				}
 			}
 
 			protected void DrawLineWithTransform(Vector2 from, Vector2 to, Color color, Transform transform_)
