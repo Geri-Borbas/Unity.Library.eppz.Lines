@@ -1,4 +1,4 @@
-# eppz.Lines
+# eppz! `Lines`
 
 * 0.5.2
 
