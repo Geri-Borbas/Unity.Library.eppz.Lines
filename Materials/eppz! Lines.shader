@@ -1,4 +1,4 @@
-﻿Shader "eppz!/Lines (vertex color)"
+﻿Shader "eppz!/Lines/Vertex color"
 {
 	
     Properties
