@@ -1,5 +1,10 @@
 # eppz! `Lines`
 
+* 0.5.4
+
+	+ `DrawLine` now use `Vector3` parameters
+		+ From [DrawLines can now be used to draw in 3d.](https://github.com/eppz/Unity.Library.eppz.Lines/pull/2)
+
 * 0.5.3
 
 	+ `LineRendererCamera` can now batch lines on `Update` or `LateUpdate`
