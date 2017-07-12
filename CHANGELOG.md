@@ -1,5 +1,9 @@
 # eppz! `Lines`
 
+* 0.5.41
+
+	+ Force text asset serialization
+
 * 0.5.4
 
 	+ `DrawLine` now use `Vector3` parameters
