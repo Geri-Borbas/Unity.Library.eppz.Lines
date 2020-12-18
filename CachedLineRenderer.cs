@@ -36,7 +36,7 @@ namespace EPPZ.Lines
 			/// </summary>
 
 
-			void Awake()
+			void Start()
 			{
 				// Collect.
 				LineRendererCamera.AddCachedRenderer(this);

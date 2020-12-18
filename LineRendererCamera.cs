@@ -55,6 +55,11 @@ namespace EPPZ.Lines
 
 		void Awake()
 		{
+			if (shared != null && shared != this)
+			{
+				Destroy(this);
+				return;
+			}
 			shared = this; 
 			_camera = GetComponent<Camera>();
 		}
