@@ -6,7 +6,6 @@
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 
@@ -60,7 +59,7 @@ namespace EPPZ.Lines
 				Destroy(this);
 				return;
 			}
-			shared = this; 
+			shared = this;
 			_camera = GetComponent<Camera>();
 		}
 
@@ -128,15 +127,22 @@ namespace EPPZ.Lines
 		void DrawCall()
 		{
 			// Assign vertex color material.
-			material.SetPass(0); // Single draw call (set pass call)
-
-			// Send vertices in GL_LINES Immediate Mode.
-			GL.Begin(GL.LINES);
-			foreach (EPPZ.Lines.Line eachLine in lineBatch)
+			// Single draw call (set pass call)
+			material.SetPass(0);
+			// Draw with width
+			GL.Begin(GL.QUADS);
+			foreach (Line eachLine in lineBatch)
 			{
 				GL.Color(eachLine.color);
-				GL.Vertex(eachLine.from);
-				GL.Vertex(eachLine.to);
+
+				Vector3 v = eachLine.to - eachLine.from;
+				Vector3 u = new Vector3(-v.y, v.x, v.z).normalized * .1f * eachLine.width;
+				u.z = v.z;
+
+				GL.Vertex(eachLine.from - u);
+				GL.Vertex(eachLine.from + u);
+				GL.Vertex(eachLine.to + u);
+				GL.Vertex(eachLine.to - u);
 			}
 			GL.End();
 		}
