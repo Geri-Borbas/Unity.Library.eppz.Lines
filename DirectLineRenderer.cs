@@ -26,7 +26,7 @@ namespace EPPZ.Lines
 
 		#region Events
 
-			void Awake()
+			void Start()
 			{
 				// Collect.
 				LineRendererCamera.AddDirectRenderer(this);
